@@ -43,7 +43,9 @@ void Core::init(const char* title)
 
 void Core::loop()
 {
-	Algorithm algorithm1
+	std::vector<Algorithm> algorithms(3);
+
+	algorithms[0] = 
 	{
 		[](Algorithm& a)
 		{
@@ -67,7 +69,7 @@ void Core::loop()
 		}, 20
 	};
 
-	Algorithm algorithm2
+	algorithms[1] = 
 	{
 		[](Algorithm& a)
 		{
@@ -89,7 +91,27 @@ void Core::loop()
 				}
 			else
 				a.B = 1;
-		}, 20
+		}, 50
+	};
+
+	algorithms[2] =
+	{
+		[](Algorithm& a)
+		{
+			if (a.B == a.nums.size())
+				return;
+			else if (a.nums[a.A] < a.nums[a.B])
+			{
+				a.A++;
+				a.B++;
+			}
+			else
+			{
+				a.A = 0;
+				a.B = 1;
+				a.shuffle();
+			}
+		}, 5
 	};
 
 	while (!glfwWindowShouldClose(window))
@@ -97,15 +119,13 @@ void Core::loop()
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		if (!algorithm1.isSorted())
-			algorithm1.sort();
-		else if (!algorithm2.isSorted())
-			algorithm2.sort();
-
-		if (!algorithm1.isSorted())
-			algorithm1.drawState();
-		else
-			algorithm2.drawState();
+		for (Algorithm& algorithm : algorithms)
+			if (!algorithm.isSorted())
+			{
+				algorithm.sort();
+				algorithm.drawState();
+				break;
+			}
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

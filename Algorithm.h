@@ -2,6 +2,7 @@
 #define ALGORITHM_H
 
 #include <vector>
+#include <random>
 
 class Algorithm;
 
@@ -12,13 +13,15 @@ class Algorithm
 private:
 	SortingFunc step{};
 	bool sorted{};
-	void shuffle(size_t);
+	std::mt19937 engine{};
 public:
 	bool swapDone{};
 	std::vector<int> nums{};
 	size_t A{};
 	size_t B{};
 	Algorithm(SortingFunc, size_t);
+	Algorithm();
+	void shuffle();
 	void drawState();
 	void sort();
 	bool& isSorted();

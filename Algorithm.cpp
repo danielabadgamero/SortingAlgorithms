@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <random>
 #include <iostream>
-#include <windows.h>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -12,16 +11,18 @@
 
 Algorithm::Algorithm(SortingFunc function, size_t size) : step{ function }
 {
-	shuffle(size);
 	A = 0;
 	B = 1;
-}
-
-void Algorithm::shuffle(size_t size)
-{
 	for (int i{}; i != size; i++)
 		nums.push_back(i);
-	std::shuffle(nums.begin(), nums.end(), std::default_random_engine{});
+	shuffle();
+}
+
+Algorithm::Algorithm() {};
+
+void Algorithm::shuffle()
+{
+	std::shuffle(nums.begin(), nums.end(), engine);
 }
 
 void Algorithm::sort()
