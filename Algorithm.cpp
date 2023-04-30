@@ -1,12 +1,17 @@
 #include <algorithm>
 #include <random>
 
+#include <GLFW/glfw3.h>
+
+#include "Shader.h"
 #include "Algorithm.h"
-#include "Column.h"
+#include "Core.h"
 
 Algorithm::Algorithm(SortingFunc function) : step{ function }
 {
 	shuffle();
+	A = 0;
+	B = 1;
 }
 
 void Algorithm::shuffle()
@@ -24,10 +29,10 @@ void Algorithm::sort()
 
 void Algorithm::drawState()
 {
+	Core::shader.use();
 	for (size_t i{}; i != nums.size(); i++)
 	{
-		Column col{ i, nums[i], nums.size(), i == A || i == B };
-		col.draw();
+		Core::shader.setUniform(glUniform1i, "index", i);
 	}
 }
 

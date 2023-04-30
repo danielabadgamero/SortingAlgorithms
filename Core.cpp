@@ -27,6 +27,7 @@ void Core::init(const char* title)
 	glViewport(0, 0, screen->width, screen->height);
 
 	glfwSetKeyCallback(window, keyCallback);
+	shader.init("vertex.glsl", "fragment.glsl");
 }
 
 void Core::loop()
@@ -58,8 +59,9 @@ void Core::loop()
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		while (!algorithm.isSorted())
+		if (!algorithm.isSorted())
 			algorithm.sort();
+		algorithm.drawState();
 
 		glfwPollEvents();
 		glfwSwapBuffers(window);

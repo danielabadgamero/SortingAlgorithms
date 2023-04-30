@@ -12,7 +12,6 @@ class Algorithm
 private:
 	SortingFunc step{};
 	bool sorted{};
-	void drawState();
 	void shuffle();
 public:
 	bool swapDone{};
@@ -20,6 +19,7 @@ public:
 	size_t A{};
 	size_t B{};
 	Algorithm(SortingFunc);
+	void drawState();
 	void sort();
 	bool& isSorted();
 };
