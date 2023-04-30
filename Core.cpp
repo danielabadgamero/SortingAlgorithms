@@ -1,7 +1,17 @@
+#include <vector>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include "Core.h"
+#include "Algorithm.h"
+
+static void swap(std::vector<int>& vec, size_t A, size_t B)
+{
+	int temp{ vec[B] };
+	vec[B] = vec[A];
+	vec[A] = temp;
+}
 
 void Core::init(const char* title)
 {
@@ -21,10 +31,35 @@ void Core::init(const char* title)
 
 void Core::loop()
 {
+	Algorithm algorithm
+	{
+		[](Algorithm& a)
+		{
+			if (a.nums[a.A] > a.nums[a.B])
+			{
+				swap(a.nums, a.A, a.B);
+				a.swapDone = true;
+			}
+			else if (a.B + 1 == a.nums.size())
+				if (!a.swapDone)
+					a.isSorted() = true;
+				else
+				{
+					a.A = 0;
+					a.B = 1;
+				}
+			a.A++;
+			a.B++;
+		} 
+	};
+
 	while (!glfwWindowShouldClose(window))
 	{
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		while (!algorithm.isSorted())
+			algorithm.sort();
 
 		glfwPollEvents();
 		glfwSwapBuffers(window);
