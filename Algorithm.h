@@ -12,13 +12,13 @@ class Algorithm
 private:
 	SortingFunc step{};
 	bool sorted{};
-	void shuffle();
+	void shuffle(size_t);
 public:
 	bool swapDone{};
 	std::vector<int> nums{};
 	size_t A{};
 	size_t B{};
-	Algorithm(SortingFunc);
+	Algorithm(SortingFunc, size_t);
 	void drawState();
 	void sort();
 	bool& isSorted();

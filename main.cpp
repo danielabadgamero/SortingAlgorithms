@@ -5,7 +5,7 @@
 
 int main()
 {
-	Core::init("");
+	Core::init("Sorting Algorithms");
 	Core::loop();
 	Core::quit();
 
