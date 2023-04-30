@@ -5,9 +5,18 @@
 
 namespace Core
 {
-	bool running;
-	GLFWwindow* window;
-	GLFWvidmode* screen;
+	inline GLFWwindow* window{};
+	inline const GLFWvidmode* screen{};
+	
+	inline double prevTime{};
+	inline double currTime{};
+	inline double deltaTime{};
+
+	void keyCallback(GLFWwindow*, int, int, int, int);
+
+	void init(const char*);
+	void loop();
+	void quit();
 }
 
 #endif
